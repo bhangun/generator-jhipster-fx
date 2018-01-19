@@ -1,0 +1,54 @@
+{
+  "name": "generator-jhipster-generator-jhipster-fx",
+  "version": "0.0.0",
+  "description": "Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application",
+  "keywords": [
+    "yeoman-generator",
+    "jhipster-module"
+  ],
+  "homepage": "https://github.com/bhangun/generator-jhipster-generator-jhipster-fx",
+  "author": {
+    "name": "bhangun hartani",
+    "email": "bhangunh@gmail.com",
+    "url": "http://bhangun.blogspot.com"
+  },
+  "files": [
+    "generators"
+  ],
+  "main": "generators/app/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bhangun/generator-jhipster-generator-jhipster-fx.git"
+  },
+  "dependencies": {
+    "chalk": "2.1.0",
+    "generator-jhipster": ">=4.6.0",
+    "mkdirp": "0.5.1",
+    "semver": "5.3.0",
+    "shelljs": "0.5.3",
+    "yeoman-generator": "2.0.0"
+  },
+  "devDependencies": {
+    "eslint": "4.7.2",
+    "eslint-config-airbnb-base": "12.0.0",
+    "eslint-plugin-import": "2.7.0",
+    "fs-extra": "4.0.2",
+    "mocha": "3.5.3",
+    "yeoman-assert": "3.1.0",
+    "yeoman-test": "1.7.0"
+  },
+  "scripts": {
+    "pretest": "eslint .",
+    "lint": "eslint .",
+    "lint-fix": "eslint . --fix",
+    "release": "git push && git push --tags && npm publish",
+    "release:patch": "npm version patch -a -m \"Update to %s\" && npm run release",
+    "release:minor": "npm version minor -a -m \"Update to %s\" && npm run release",
+    "release:major": "npm version major -a -m \"Update to %s\" && npm run release",
+    "test": "mocha test/*"
+  },
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/bhangun/generator-jhipster-generator-jhipster-fx/issues"
+  }
+}

@@ -1,0 +1,2 @@
+hello generator-jhipster-fx:entity sub generator!
+It's dummy.txt
