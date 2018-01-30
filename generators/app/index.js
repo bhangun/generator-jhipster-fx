@@ -22,7 +22,12 @@ module.exports = class extends BaseGenerator {
                 // it's here to show that you can use functions from generator-jhipster
                 // this function is in: generator-jhipster/generators/generator-base.js
                 this.printJHipsterLogo();
-
+                this.log('                                             ███████╗██╗  ██╗');
+                this.log('  __           _              _              ██╔════╝╚██╗██╔╝');
+                this.log('  \\ \\   /\\  /\\(_) _ __   ___ | |_  ___  _ __ █████╗   ╚███╔╝ ');
+                this.log('   \\ \\ / /_/ /| || \'_ \\ / __|| __|/ _ \\| \'__|██╔══╝   ██╔██╗ ');
+                this.log('/\\_/ // __  / | || |_) |\\__ \\| |_|  __/| |   ██║     ██╔╝ ██╗');
+                this.log('\\___/ \\/ /_/  |_|| .__/ |___/ \\__|\\___||_|   ╚═╝     ╚═╝  ╚═╝');
                 // Have Yeoman greet the user.
                 this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster generator-jhipster-fx')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
