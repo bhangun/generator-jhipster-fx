@@ -1,2 +1,3 @@
-hello generator-jhipster-fx!
+hello generator-jhipster-fx! 
 It's dummy.txt
+<% baseName %>

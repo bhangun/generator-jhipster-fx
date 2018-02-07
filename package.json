@@ -1,12 +1,12 @@
 {
-  "name": "generator-jhipster-generator-jhipster-fx",
+  "name": "generator-jhipster-fx",
   "version": "0.0.0",
   "description": "Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application",
   "keywords": [
     "yeoman-generator",
     "jhipster-module"
   ],
-  "homepage": "https://github.com/bhangun/generator-jhipster-generator-jhipster-fx",
+  "homepage": "https://github.com/bhangun/generator-jhipster-fx",
   "author": {
     "name": "bhangun hartani",
     "email": "bhangunh@gmail.com",
@@ -18,7 +18,7 @@
   "main": "generators/app/index.js",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/bhangun/generator-jhipster-generator-jhipster-fx.git"
+    "url": "git+https://github.com/bhangun/generator-jhipster-fx.git"
   },
   "dependencies": {
     "chalk": "2.1.0",
@@ -49,6 +49,6 @@
   },
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.com/bhangun/generator-jhipster-generator-jhipster-fx/issues"
+    "url": "https://github.com/bhangun/generator-jhipster-fx/issues"
   }
 }
