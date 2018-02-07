@@ -7,7 +7,7 @@ const helpers = require('yeoman-test');
 
 describe('JHipster generator generator-jhipster-fx', () => {
     describe('Test with Maven and AngularX', () => {
-        beforeEach((done) => {
+        beforeEach((done) => { console.log('-------------------------')
             helpers
                 .run(path.join(__dirname, '../generators/app'))
                 .inTmpDir((dir) => {

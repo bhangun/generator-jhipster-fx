@@ -1,2 +1,3 @@
 hello generator-jhipster-fx!
-It's dummy.txt
+It's dummy.txt <%= packageName %>
+<%= baseName %>
