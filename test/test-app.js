@@ -5,9 +5,9 @@ const fse = require('fs-extra');
 const assert = require('yeoman-assert');
 const helpers = require('yeoman-test');
 
-describe('JHipster generator generator-jhipster-fx', () => {
+describe('JHipster FX', () => {
     describe('Test with Maven and AngularX', () => {
-        beforeEach((done) => { console.log('-------------------------')
+        beforeEach((done) => {
             helpers
                 .run(path.join(__dirname, '../generators/app'))
                 .inTmpDir((dir) => {

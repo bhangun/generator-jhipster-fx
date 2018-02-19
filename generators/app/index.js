@@ -10,6 +10,7 @@ module.exports = class extends BaseGenerator {
             init(args) {
                 if (args === 'default') {
                     // do something when argument is 'default'
+                    this.log('Ini default....');
                 }
             },
             readConfig() {
@@ -21,13 +22,14 @@ module.exports = class extends BaseGenerator {
             displayLogo() {
                 // it's here to show that you can use functions from generator-jhipster
                 // this function is in: generator-jhipster/generators/generator-base.js
-                this.printJHipsterLogo();
-                this.log('                                             ███████╗██╗  ██╗');
-                this.log('  __           _              _              ██╔════╝╚██╗██╔╝');
-                this.log('  \\ \\   /\\  /\\(_) _ __   ___ | |_  ___  _ __ █████╗   ╚███╔╝ ');
-                this.log('   \\ \\ / /_/ /| || \'_ \\ / __|| __|/ _ \\| \'__|██╔══╝   ██╔██╗ ');
-                this.log('/\\_/ // __  / | || |_) |\\__ \\| |_|  __/| |   ██║     ██╔╝ ██╗');
-                this.log('\\___/ \\/ /_/  |_|| .__/ |___/ \\__|\\___||_|   ╚═╝     ╚═╝  ╚═╝');
+                // this.printJHipsterLogo();
+
+                this.log(`${chalk.bold.yellow('       ____  ___            __            ')}${chalk.bold.red('███████╗██╗  ██╗')}`);
+                this.log(`${chalk.bold.yellow('      / / / / (_)___  _____/ /____  _____ ')}${chalk.bold.red('██╔════╝╚██╗██╔╝')}`);
+                this.log(`${chalk.bold.yellow(' __  / / /_/ / / __ \\/ ___/ __/ _ \\/ ___/ ')}${chalk.bold.red('█████╗   ╚███╔╝ ')}`);
+                this.log(`${chalk.bold.yellow('/ /_/ / __  / / /_/ (__  ) /_/  __/ /     ')}${chalk.bold.red('██╔══╝   ██╔██╗ ')}`);
+                this.log(`${chalk.bold.yellow('\\____/_/ /_/_/ .___/____/\\__/\\___/_/      ')}${chalk.bold.red('██║     ██╔╝ ██╗')}`);
+                this.log(`${chalk.bold.yellow('            /_/                           ')}${chalk.bold.red('╚═╝     ╚═╝  ╚═╝')}`);
                 // Have Yeoman greet the user.
                 this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster generator-jhipster-fx')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
@@ -47,7 +49,13 @@ module.exports = class extends BaseGenerator {
                 type: 'input',
                 name: 'message',
                 message: 'Please put something',
-                default: 'hello world!'
+                default: 'bismillah'
+            },
+            {
+                type: 'input',
+                name: 'nama',
+                message: 'Nama proyek apa bro?',
+                default: 'proyeku'
             }
         ];
 
@@ -55,7 +63,7 @@ module.exports = class extends BaseGenerator {
         this.prompt(prompts).then((props) => {
             this.props = props;
             // To access props later use this.props.someOption;
-
+            this.log(this.props.name);
             done();
         });
     }
@@ -107,7 +115,10 @@ module.exports = class extends BaseGenerator {
 
         this.log('\n--- variables from questions ---');
         this.log(`\nmessage=${this.message}`);
+        this.log(`\nmessage=${this.message}`);
+        this.log(`\nmessage=${this.name}`);
         this.log('------\n');
+
 
         if (this.clientFramework === 'angular1') {
             this.template('dummy.txt', 'dummy-angular1.txt');
