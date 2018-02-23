@@ -54,6 +54,7 @@ const constants = {
 
     MAIN_DIR,
     TEST_DIR,
+    KOTLIN_SRC_DIR: `${MAIN_DIR}kotlin/`,
 
     CLIENT_MAIN_SRC_DIR: `${MAIN_DIR}webapp/`,
     CLIENT_TEST_SRC_DIR: `${TEST_DIR}javascript/`,
