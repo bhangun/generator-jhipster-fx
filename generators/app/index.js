@@ -20,10 +20,6 @@ module.exports = class extends BaseGenerator {
                 }
             },
             displayLogo() {
-                // it's here to show that you can use functions from generator-jhipster
-                // this function is in: generator-jhipster/generators/generator-base.js
-                // this.printJHipsterLogo();
-
                 this.log(`${chalk.bold.yellow('       ____  ___            __            ')}${chalk.bold.red('███████╗██╗  ██╗')}`);
                 this.log(`${chalk.bold.yellow('      / / / / (_)___  _____/ /____  _____ ')}${chalk.bold.red('██╔════╝╚██╗██╔╝')}`);
                 this.log(`${chalk.bold.yellow(' __  / / /_/ / / __ \\/ ___/ __/ _ \\/ ___/ ')}${chalk.bold.red('█████╗   ╚███╔╝ ')}`);
@@ -31,7 +27,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.yellow('\\____/_/ /_/_/ .___/____/\\__/\\___/_/      ')}${chalk.bold.red('██║     ██╔╝ ██╗')}`);
                 this.log(`${chalk.bold.yellow('            /_/                           ')}${chalk.bold.red('╚═╝     ╚═╝  ╚═╝')}`);
                 // Have Yeoman greet the user.
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster FX module')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nBismillah Welcome to the ${chalk.bold.yellow('JHipster FX module')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
             checkJhipster() {
                 const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
@@ -117,58 +113,40 @@ module.exports = class extends BaseGenerator {
         this.log(`\nmessage=${this.message}`);
         this.log(`\nmessage=${this.message}`);
         this.log(`\nmessage=${this.name}`);
-        this.log('------\n');
 
+        this.composeWith(require.resolve('../kotlin'), {
+            configOptions: this.configOptions,
+            force: this.options.force,
+            debug: this.isDebugEnabled
+        });
 
-        if (this.clientFramework === 'angular1') {
-            this.template('dummy.txt', 'dummy-angular1.txt');
-        }
-        if (this.clientFramework === 'angularX' || this.clientFramework === 'angular2') {
-            this.template('dummy.txt', 'dummy-angularX.txt');
-        }
-        if (this.buildTool === 'maven') {
-            this.template('dummy.txt', 'dummy-maven.txt');
-        }
-        if (this.buildTool === 'gradle') {
-            this.template('dummy.txt', 'dummy-gradle.txt');
-        }
         try {
-            this.registerModule('generator-jhipster-generator-jhipster-fx', 'entity', 'post', 'entity', 'Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application');
+            this.registerModule('generator-jhipster-fx', 'entity', 'post', 'entity', 'Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application');
         } catch (err) {
             this.log(`${chalk.red.bold('WARN!')} Could not register as a jhipster entity post creation hook...\n`);
         }
     }
 
     install() {
-        let logMsg =
-            `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
-
-        if (this.clientFramework === 'angular1') {
-            logMsg =
-                `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install & bower install`)}`;
-        }
-        const injectDependenciesAndConstants = (err) => {
+        // const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
+        /* const injectDependenciesAndConstants = (err) => {
             if (err) {
                 this.warning('Install of dependencies failed!');
                 this.log(logMsg);
-            } else if (this.clientFramework === 'angular1') {
-                this.spawnCommand('gulp', ['install']);
             }
-        };
-        const installConfig = {
-            bower: this.clientFramework === 'angular1',
-            npm: this.clientPackageManager !== 'yarn',
-            yarn: this.clientPackageManager === 'yarn',
-            callback: injectDependenciesAndConstants
+        }; */
+        /* const installConfig = {
+            // bower: this.clientFramework === 'angular1',
+            // npm: this.clientPackageManager !== 'yarn',
+            // yarn: this.clientPackageManager === 'yarn',
+            // callback: injectDependenciesAndConstants
         };
         if (this.options['skip-install']) {
             this.log(logMsg);
         } else {
-            this.installDependencies(installConfig);
-        }
+           // this.installDependencies(installConfig);
+        } */
     }
 
-    end() {
-        this.log('End of generator-jhipster-fx generator');
-    }
+    end() {}
 };

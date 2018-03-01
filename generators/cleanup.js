@@ -17,9 +17,9 @@
  * limitations under the License.
  */
 
-const constants = require('./generator-constants');
+// const constants = require('./generator-constants');
 
-const KOTLIN_SRC_DIR = constants.KOTLIN_SRC_DIR;
+// const KOTLIN_SRC_DIR = constants.KOTLIN_SRC_DIR;
 
 
 module.exports = {
@@ -34,9 +34,11 @@ module.exports = {
  * @param {string} testDir - Test Dir
  */
 function cleanupOldFiles(generator, javaDir, testDir) {
+    /*
     if (generator.isJhipsterVersionLessThan('3.2.0')) {
         // removeFile and removeFolder methods should be called here for files and folders to cleanup
         generator.removeFile(`${KOTLIN_SRC_DIR}components/form/uib-pager.config.js`);
         generator.removeFile(`${KOTLIN_SRC_DIR}components/form/uib-pagination.config.js`);
     }
+    */
 }

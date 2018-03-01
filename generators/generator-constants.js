@@ -17,7 +17,6 @@
  * limitations under the License.
  */
 
-
 // Version of Java, Scala
 const JAVA_VERSION = '1.8'; // Java version is forced to be 1.8. We keep the variable as it might be useful in the future.
 const KOTLIN_VERSION = '1.2.21';
@@ -28,12 +27,10 @@ const YARN_VERSION = '1.3.2';
 const NPM_VERSION = '5.6.0';
 
 // all constants used throughout all generators
-
+const PROJECTS = 'kotlin/mypackage';
 const MAIN_DIR = 'src/main/';
 const TEST_DIR = 'src/test/';
-
-// Note: this will be prepended with 'target/' for Maven, or with 'build/' for Gradle.
-const CLIENT_DIST_DIR = 'www/';
+const KOTLIN_TEMPLATE = MAIN_DIR + PROJECTS;
 
 const SUPPORTED_VALIDATION_RULES = ['required', 'unique', 'max', 'min', 'maxlength', 'minlength', 'maxbytes', 'minbytes', 'pattern'];
 
@@ -51,23 +48,11 @@ const constants = {
     INTERPOLATE_REGEX: /<%:([\s\S]+?)%>/g, // so that tags in templates do not get mistreated as _ templates
     LINE_LENGTH: 180,
     LANGUAGES,
-
+    PROJECTS,
+    KOTLIN_TEMPLATE,
     MAIN_DIR,
     TEST_DIR,
     KOTLIN_SRC_DIR: `${MAIN_DIR}kotlin/`,
-
-    CLIENT_MAIN_SRC_DIR: `${MAIN_DIR}webapp/`,
-    CLIENT_TEST_SRC_DIR: `${TEST_DIR}javascript/`,
-    CLIENT_WEBPACK_DIR: 'webpack/',
-    CLIENT_DIST_DIR,
-    ANGULAR_DIR: `${MAIN_DIR}webapp/app/`,
-    REACT_DIR: `${MAIN_DIR}webapp/app/`,
-
-    SERVER_MAIN_SRC_DIR: `${MAIN_DIR}java/`,
-    SERVER_MAIN_RES_DIR: `${MAIN_DIR}resources/`,
-    SERVER_TEST_SRC_DIR: `${TEST_DIR}java/`,
-    SERVER_TEST_RES_DIR: `${TEST_DIR}resources/`,
-
     // entity related
     SUPPORTED_VALIDATION_RULES,
 
