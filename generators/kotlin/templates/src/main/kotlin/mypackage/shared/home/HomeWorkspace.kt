@@ -1,4 +1,4 @@
-package mypackage.shared.home
+package <%= packageName %>.shared.home
 
 import javafx.application.Platform
 import javafx.scene.control.Menu

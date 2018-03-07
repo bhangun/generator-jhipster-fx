@@ -1,7 +1,5 @@
-package mypackage.shared.login
+package <%= packageName %>.shared.login
 
-
-import mypackage.shared.Styles.Companion.loginScreen
 import javafx.animation.KeyFrame
 import javafx.animation.Timeline
 import javafx.event.EventHandler
@@ -11,12 +9,13 @@ import javafx.scene.control.TextField
 import javafx.scene.control.Hyperlink
 import javafx.scene.layout.GridPane
 import javafx.util.Duration
+import <%= packageName %>.shared.styles.LoginStyles.Companion.loginStyle
+import <%= packageName %>.shared.styles.Styles.Companion.baseStyle
 import tornadofx.*
 
 class LoginView : View() {
     override val root = GridPane()
     val loginController: LoginController by inject()
-
     var username: TextField by singleAssign()
     var password: PasswordField by singleAssign()
     var remember: CheckBox by singleAssign()
@@ -27,7 +26,8 @@ class LoginView : View() {
         title = "Welcome in this Apps"
 
         with (root) {
-            addClass(loginScreen)
+            addClass(loginStyle)
+            addClass(baseStyle)
 
             row("Username") {
                 username = textfield()

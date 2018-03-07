@@ -3,10 +3,13 @@ const writeFiles = require('./files').writeFiles;
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 // const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
+// let useBlueprint;
+
 module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
         this.configOptions = this.options.configOptions || {};
+
         // This adds support for a `--[no-]client-hook` flag
         this.option('client-hook', {
             desc: 'Enable gulp and bower hook from maven/gradle build',
@@ -20,47 +23,55 @@ module.exports = class extends BaseGenerator {
             type: Boolean,
             defaults: true
         });
+
+        this.log('------masuk kotlin....');
+        // const blueprint = this.options.blueprint || this.configOptions.blueprint || this.config.get('blueprint');
+        // useBlueprint = this.composeBlueprint(blueprint, 'kotlin'); // use global variable since getters dont have access to instance property
     }
+
     get initializing() {
         return {
             init(args) {
                 if (args === 'default') {
                     // do something when argument is 'default'
-                    this.log('masuk kotlin....');
                 }
             },
             readConfig() {
+                this.packageName = this.config.get('packageName');
+                this.baseName = this.config.get('baseName');
+                this.packageFolder = this.config.get('packageFolder');
+                this.log(this.packageName);
+                this.log(this.baseName);
+                this.log(this.packageFolder);
+                this.log('++++++++++++++++++++++');
             },
         };
     }
 
-    prompting() {
-        /* const prompts = [
-            {
-                type: 'input',
-                name: 'message',
-                message: 'Please put something',
-                default: 'bismillah'
-            },
-            {
-                type: 'input',
-                name: 'nama',
-                message: 'Nama proyek apa bro?',
-                default: 'proyeku'
+    get prompting() {
+        // return {};
+        return {
+        // askForModuleName: prompts.askForModuleName,
+            setSharedConfigOptions() {
+                this.configOptions.packageName = this.packageName;
+                this.configOptions.baseName = this.baseName;
             }
-        ];
+        };
+    }
 
-        const done = this.async();
-        this.prompt(prompts).then((props) => {
-            this.props = props;
-            // To access props later use this.props.someOption;
-            this.log(this.props.name);
-            done();
-        }); */
+    get configuring() {
+    // if (useBlueprint) return;
+        return {
+            saveConfig() {
+                this.config.set('baseName', this.baseName);
+                this.config.set('packageName', this.packageName);
+                this.config.set('packageFolder', this.packageFolder);
+            }
+        };
     }
 
     get writing() {
-        return writeFiles(this.config);
+        return writeFiles();
     }
 
     install() {

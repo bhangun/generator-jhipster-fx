@@ -1,8 +1,8 @@
-package mypackage
+package <%= packageName %>
 
 
-import mypackage.shared.Styles
-import mypackage.shared.login.LoginView
+import <%= packageName %>.shared.styles.Styles
+import <%= packageName %>.shared.login.LoginView
 import tornadofx.*
 
 

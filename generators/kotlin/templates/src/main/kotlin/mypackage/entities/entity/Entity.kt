@@ -1,4 +1,4 @@
-package com.example.demo.account
+package <%= packageName %>.shared.account
 
 import javafx.beans.property.BooleanProperty
 import javafx.beans.property.Property
@@ -7,36 +7,36 @@ import tornadofx.*
 import java.time.Instant
 import javax.json.JsonObject
 
-class User(): JsonModel {
+class Entity(): JsonModel {
 
     var id by property<String>()
-    fun idProperty() = getProperty(User::id)
+    fun idProperty() = getProperty(Entity::id)
     var login by property<String>()
-    fun loginProperty() = getProperty(User::login)
+    fun loginProperty() = getProperty(Entity::login)
     var firstName by property<String>()
-    fun firstNameProperty() = getProperty(User::firstName)
+    fun firstNameProperty() = getProperty(Entity::firstName)
     var lastName by property<String>()
-    fun lastNameProperty() = getProperty(User::lastName)
+    fun lastNameProperty() = getProperty(Entity::lastName)
     var email by property<String>()
-    fun emailProperty() = getProperty(User::email)
+    fun emailProperty() = getProperty(Entity::email)
     var imageUrl by property<String>()
-    fun imageUrlProperty() = getProperty(User::imageUrl)
+    fun imageUrlProperty() = getProperty(Entity::imageUrl)
     var activated by property<Boolean>()
-    fun activatedProperty() = getProperty(User::activated)
+    fun activatedProperty() = getProperty(Entity::activated)
     var langKey by property<String>()
-    fun langKeyProperty() = getProperty(User::langKey)
+    fun langKeyProperty() = getProperty(Entity::langKey)
     var createdBy by property<String>()
-    fun createdByProperty() = getProperty(User::createdBy)
+    fun createdByProperty() = getProperty(Entity::createdBy)
     var createdDate by property<Instant>()
-    fun createdDateProperty() = getProperty(User::createdDate)
+    fun createdDateProperty() = getProperty(Entity::createdDate)
     var lastModifiedBy by property<String>()
-    fun lastModifiedByProperty() = getProperty(User::lastModifiedBy)
+    fun lastModifiedByProperty() = getProperty(Entity::lastModifiedBy)
     var lastModifiedDate by property<Instant>()
-    fun lastModifiedDateProperty() = getProperty(User::lastModifiedDate)
+    fun lastModifiedDateProperty() = getProperty(Entity::lastModifiedDate)
     var authorities by property<String>()
-    fun authoritiesProperty() = getProperty(User::authorities)
+    fun authoritiesProperty() = getProperty(Entity::authorities)
     var password by property<String>()
-    fun passwordProperty() = getProperty(User::password)
+    fun passwordProperty() = getProperty(Entity::password)
 
     override fun updateModel(json: JsonObject) {
         with(json) {
@@ -75,7 +75,7 @@ class User(): JsonModel {
     }
 }
 
-class UserModel : ItemViewModel<User>(User()) {
+class EntityModel : ItemViewModel<Entity>(Entity()) {
     var id : StringProperty = bind { item?.idProperty() }
     var login : StringProperty = bind { item?.loginProperty() }
     var firstName : StringProperty = bind { item?.firstNameProperty() }

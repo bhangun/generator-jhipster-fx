@@ -1,11 +1,11 @@
-package mypackage.shared.account
+package <%= packageName %>.shared.account
 
 
-import mypackage.shared.login.LoginController
+import <%= packageName %>.shared.login.LoginController
 import tornadofx.Controller
 
 class RegisterController : Controller() {
-    val registerView: RegisterForm by inject()
+    val registerView: RegisterView by inject()
 val loginController: LoginController by inject()
     init{
 

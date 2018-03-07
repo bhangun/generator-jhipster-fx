@@ -1,4 +1,4 @@
-package mypackage.shared
+package <%= packageName %>.shared
 
 import tornadofx.*
 
@@ -7,70 +7,6 @@ class BaseController : Controller() {
     var ENDPOINT= "http://localhost:8080"
     var BASE_URI= "/api/"
 
-    /**
-     * GET getAccount
-     */
-    var API_ACCOUNT= BASE_URI+"account"
-
-    /**
-     * POST saveAccount
-     */
-    var API_ACCOUNT_SAVE= BASE_URI+"account"
-
-    /**
-     * POST changePassword
-     */
-    var API_ACCOUNT_CHANGE_PASSWORD= BASE_URI+"account/change-password"
-
-    /**
-     * POST finishPasswordReset
-     */
-    var API_ACCOUNT_RESET_FINISH= BASE_URI+"account/reset-password/finish"
-
-    /**
-     * POST requestPasswordReset
-     */
-    var API_ACCOUNT_RESET_INIT= BASE_URI+"account/reset-password/init"
-
-    /**
-     * GET activateAccount
-     */
-    var API_ACTIVATE= BASE_URI+"activate"
-
-    /**
-     * POST registerAccount
-     */
-    var API_REGISTER = BASE_URI+"register"
-
-    /**
-     * GET getActiveProfiles
-     */
-    var API_PROFILE_INFO = BASE_URI+"profile-info"
-
-    /**
-     * POST authorize
-     * GET isAuthenticated
-     */
-    var API_USERS_AUTHENTICATE= BASE_URI+"authenticate"
-
-    /**
-     * GET getAllUsers
-     * POST createUser
-     * PUT updateUser
-     * DELETE deleteUser
-     */
-    var API_USERS=BASE_URI+"users"
-
-    /**
-     * GET getAuthorities
-     */
-    var API_USERS_AUTHORITIES= BASE_URI+"users/authorities"
-
-    /**
-     * GET getUser
-     * DELETE deleteUser
-     */
-    var API_USER= BASE_URI+"users/"//{login}
 
 
     init {
@@ -107,10 +43,6 @@ class BaseController : Controller() {
             (it as HttpURLRequest).connection.readTimeout = 5000
         }
     }
-
-
-
-
 
     companion object {
         val TOKEN = "idtoken"

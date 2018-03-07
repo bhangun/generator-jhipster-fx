@@ -17,7 +17,7 @@
  * limitations under the License.
  */
 
-// Version of Java, Scala
+// Version of Java, Kotlin
 const JAVA_VERSION = '1.8'; // Java version is forced to be 1.8. We keep the variable as it might be useful in the future.
 const KOTLIN_VERSION = '1.2.21';
 
@@ -27,10 +27,10 @@ const YARN_VERSION = '1.3.2';
 const NPM_VERSION = '5.6.0';
 
 // all constants used throughout all generators
-const PROJECTS = 'kotlin/mypackage';
+const KOTLIN = 'kotlin/mypackage';
 const MAIN_DIR = 'src/main/';
 const TEST_DIR = 'src/test/';
-const KOTLIN_TEMPLATE = MAIN_DIR + PROJECTS;
+const KOTLIN_TEMPLATE = MAIN_DIR + KOTLIN;
 
 const SUPPORTED_VALIDATION_RULES = ['required', 'unique', 'max', 'min', 'maxlength', 'minlength', 'maxbytes', 'minbytes', 'pattern'];
 
@@ -48,7 +48,7 @@ const constants = {
     INTERPOLATE_REGEX: /<%:([\s\S]+?)%>/g, // so that tags in templates do not get mistreated as _ templates
     LINE_LENGTH: 180,
     LANGUAGES,
-    PROJECTS,
+    KOTLIN,
     KOTLIN_TEMPLATE,
     MAIN_DIR,
     TEST_DIR,

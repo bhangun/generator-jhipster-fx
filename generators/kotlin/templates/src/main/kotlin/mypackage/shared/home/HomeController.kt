@@ -1,11 +1,11 @@
-package mypackage.shared.home
+package <%= packageName %>.shared.home
 
 
-import com.example.demo.account.UserFragment
-import mypackage.shared.administration.ConfigurationFragment
-import mypackage.shared.administration.HealthFragment
-import mypackage.shared.administration.MetricFragment
-import mypackage.shared.dashboard.DashboardFragment
+import <%= packageName %>.shared.account.UserFragment
+import <%= packageName %>.shared.administration.ConfigurationFragment
+import <%= packageName %>.shared.administration.HealthFragment
+import <%= packageName %>.shared.administration.MetricFragment
+import <%= packageName %>.shared.dashboard.DashboardFragment
 import tornadofx.*
 
 class HomeController : Controller() {

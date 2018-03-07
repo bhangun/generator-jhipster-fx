@@ -1,4 +1,4 @@
-package mypackage.shared.administration
+package <%= packageName %>.shared.administration
 
 import tornadofx.*
 

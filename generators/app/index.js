@@ -27,7 +27,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.yellow('\\____/_/ /_/_/ .___/____/\\__/\\___/_/      ')}${chalk.bold.red('██║     ██╔╝ ██╗')}`);
                 this.log(`${chalk.bold.yellow('            /_/                           ')}${chalk.bold.red('╚═╝     ╚═╝  ╚═╝')}`);
                 // Have Yeoman greet the user.
-                this.log(`\nBismillah Welcome to the ${chalk.bold.yellow('JHipster FX module')} generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster FX ')}module generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
             checkJhipster() {
                 const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;
@@ -40,28 +40,65 @@ module.exports = class extends BaseGenerator {
     }
 
     prompting() {
+        const fxName = `${this.jhipsterAppConfig.baseName}FX`;
         const prompts = [
             {
                 type: 'input',
-                name: 'message',
-                message: 'Please put something',
-                default: 'bismillah'
+                name: 'fxName',
+                message: 'What is your JavaFX (desktop) application name?',
+                default: fxName,
+                store: true
             },
             {
                 type: 'input',
-                name: 'nama',
-                message: 'Nama proyek apa bro?',
-                default: 'proyeku'
+                name: 'packageName',
+                validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ?
+                    true : 'The package name you have provided is not a valid Java package name.'),
+                message: 'What is your default JavaFX package name?',
+                default: this.jhipsterAppConfig.packageName,
+                store: true
+            },
+            {
+                type: 'input',
+                name: 'packageFolder',
+                message: 'Where your apps path folder would be put?',
+                default: `../${this.jhipsterAppConfig.baseName}FX`
+            },
+            {
+                type: 'list',
+                name: 'buildTool',
+                message: 'Would you like to use Maven or Gradle for building the backend?',
+                choices: [
+                    {
+                        value: 'maven',
+                        name: 'Maven'
+                    },
+                    {
+                        value: 'gradle',
+                        name: 'Gradle'
+                    }
+                ],
+                default: 'maven'
             }
         ];
 
         const done = this.async();
         this.prompt(prompts).then((props) => {
             this.props = props;
-            // To access props later use this.props.someOption;
-            this.log(this.props.name);
+            this.log(this.props.packageName);
             done();
         });
+    }
+    get configuring() {
+        // if (useBlueprint) return;
+        return {
+            saveConfig() {
+                this.log('-----simpan config-----');
+                this.config.set('baseName', this.props.fxName);
+                this.config.set('packageName', this.props.packageName);
+                this.config.set('packageFolder', this.props.packageFolder);
+            }
+        };
     }
 
     writing() {
@@ -74,48 +111,31 @@ module.exports = class extends BaseGenerator {
             );
         };
 
-        // read config from .yo-rc.json
-        this.baseName = this.jhipsterAppConfig.baseName;
-        this.packageName = this.jhipsterAppConfig.packageName;
-        this.packageFolder = this.jhipsterAppConfig.packageFolder;
-        this.clientFramework = this.jhipsterAppConfig.clientFramework;
-        this.clientPackageManager = this.jhipsterAppConfig.clientPackageManager;
-        this.buildTool = this.jhipsterAppConfig.buildTool;
-
-        // use function in generator-base.js from generator-jhipster
-        this.angularAppName = this.getAngularAppName();
+        this.message = this.props.message;
+        this.baseName = this.props.fxName;
+        this.packageName = this.props.packageName;
+        this.packageFolder = this.props.packageFolder;
+        this.buildTool = this.props.buildTool;
 
         // use constants from generator-constants.js
         const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
-        const webappDir = jhipsterConstants.CLIENT_MAIN_SRC_DIR;
-
         // variable from questions
-        this.message = this.props.message;
-
         // show all variables
         this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
         this.log(`packageName=${this.packageName}`);
-        this.log(`clientFramework=${this.clientFramework}`);
-        this.log(`clientPackageManager=${this.clientPackageManager}`);
+        this.log(`packageFolder=${this.packageFolder}`);
         this.log(`buildTool=${this.buildTool}`);
-
-        this.log('\n--- some function ---');
-        this.log(`angularAppName=${this.angularAppName}`);
 
         this.log('\n--- some const ---');
         this.log(`javaDir=${javaDir}`);
         this.log(`resourceDir=${resourceDir}`);
-        this.log(`webappDir=${webappDir}`);
-
-        this.log('\n--- variables from questions ---');
-        this.log(`\nmessage=${this.message}`);
-        this.log(`\nmessage=${this.message}`);
-        this.log(`\nmessage=${this.name}`);
 
         this.composeWith(require.resolve('../kotlin'), {
             configOptions: this.configOptions,
+            namaBase: this.baseName,
+            packageFolder: this.packageFolder,
             force: this.options.force,
             debug: this.isDebugEnabled
         });
@@ -127,26 +147,7 @@ module.exports = class extends BaseGenerator {
         }
     }
 
-    install() {
-        // const logMsg = `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
-        /* const injectDependenciesAndConstants = (err) => {
-            if (err) {
-                this.warning('Install of dependencies failed!');
-                this.log(logMsg);
-            }
-        }; */
-        /* const installConfig = {
-            // bower: this.clientFramework === 'angular1',
-            // npm: this.clientPackageManager !== 'yarn',
-            // yarn: this.clientPackageManager === 'yarn',
-            // callback: injectDependenciesAndConstants
-        };
-        if (this.options['skip-install']) {
-            this.log(logMsg);
-        } else {
-           // this.installDependencies(installConfig);
-        } */
-    }
+    install() {}
 
     end() {}
 };

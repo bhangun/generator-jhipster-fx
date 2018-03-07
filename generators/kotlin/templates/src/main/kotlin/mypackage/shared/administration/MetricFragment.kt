@@ -1,4 +1,4 @@
-package mypackage.shared.administration
+package <%= packageName %>.shared.administration
 
 import javafx.scene.chart.CategoryAxis
 import javafx.scene.chart.NumberAxis

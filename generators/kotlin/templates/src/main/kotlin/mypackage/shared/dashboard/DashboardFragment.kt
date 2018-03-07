@@ -1,4 +1,4 @@
-package mypackage.shared.dashboard
+package <%= packageName %>.shared.dashboard
 
 import javafx.scene.chart.CategoryAxis
 import javafx.scene.chart.NumberAxis
@@ -7,90 +7,91 @@ import tornadofx.*
 
 
 class DashboardFragment : Fragment("Dashboard ") {
-    override val root = gridpane()
+    override val root = scrollpane()
+    val grid = gridpane()
     init {
         with(root) {
-            row() {
-                piechart("Imported Fruits") {
-                    data("Grapefruit", 12.0)
-                    data("Oranges", 25.0)
-                    data("Plums", 10.0)
-                    data("Pears", 22.0)
-                    data("Apples", 30.0)
-                }
-                barchart("Stock Monitoring, 2010", javafx.scene.chart.CategoryAxis(), javafx.scene.chart.NumberAxis()) {
-                    series("Portfolio 1") {
-                        data("Jan", 23)
-                        data("Feb", 14)
-                        data("Mar", 15)
+            with(grid) {
+                row() {
+                    piechart("Imported Fruits") {
+                        data("Grapefruit", 12.0)
+                        data("Oranges", 25.0)
+                        data("Plums", 10.0)
+                        data("Pears", 22.0)
+                        data("Apples", 30.0)
                     }
-                    series("Portfolio 2") {
-                        data("Jan", 11)
-                        data("Feb", 19)
-                        data("Mar", 27)
+                    barchart("Stock Monitoring, 2010", CategoryAxis(), NumberAxis()) {
+                        series("Portfolio 1") {
+                            data("Jan", 23)
+                            data("Feb", 14)
+                            data("Mar", 15)
+                        }
+                        series("Portfolio 2") {
+                            data("Jan", 11)
+                            data("Feb", 19)
+                            data("Mar", 27)
+                        }
                     }
-                }
-                stackedbarchart("Stock again", javafx.scene.chart.CategoryAxis(), javafx.scene.chart.NumberAxis()) {
-                    series("Portfolio 1") {
-                        data("Jan", 23)
-                        data("Feb", 14)
-                        data("Mar", 15)
+                    stackedbarchart("Stock again", CategoryAxis(), NumberAxis()) {
+                        series("Portfolio 1") {
+                            data("Jan", 23)
+                            data("Feb", 14)
+                            data("Mar", 15)
+                        }
+                        series("Portfolio 2") {
+                            data("Jan", 11)
+                            data("Feb", 19)
+                            data("Mar", 27)
+                        }
                     }
-                    series("Portfolio 2") {
-                        data("Jan", 11)
-                        data("Feb", 19)
-                        data("Mar", 27)
-                    }
-                }
-                linechart("linechart", javafx.scene.chart.CategoryAxis(), javafx.scene.chart.NumberAxis()) {
-                    series("month") {
-                        data("jan", 10)
-                        data("feb", 20)
-                        data("mar", 5)
-                    }
-                    series("week") {
-                        data("jan", 1)
-                        data("feb", 2)
-                    }
-                }
-            }
-            row {
-
-                barchart("multiseries", javafx.scene.chart.CategoryAxis(), javafx.scene.chart.NumberAxis()) {
-                    multiseries("Portfolio 1", "Portfolio 2") {
-                        data("Jan", 23, 10)
-                        data("Feb", 14, 5)
-                        data("Mar", 15, 8)
+                    linechart("linechart", CategoryAxis(), NumberAxis()) {
+                        series("month") {
+                            data("jan", 10)
+                            data("feb", 20)
+                            data("mar", 5)
+                        }
+                        series("week") {
+                            data("jan", 1)
+                            data("feb", 2)
+                        }
                     }
                 }
-                bubblechart("bubblechart", javafx.scene.chart.NumberAxis(), javafx.scene.chart.NumberAxis()) {
-                    series("series 1") {
-                        data(1, 1, 1)
-                        data(5, 5, 0.25)
+                row {
+                    barchart("multiseries", CategoryAxis(), NumberAxis()) {
+                        multiseries("Portfolio 1", "Portfolio 2") {
+                            data("Jan", 23, 10)
+                            data("Feb", 14, 5)
+                            data("Mar", 15, 8)
+                        }
                     }
-                }
-                areachart("area chart", javafx.scene.chart.CategoryAxis(), javafx.scene.chart.NumberAxis()) {
-                    series("area 1") {
-                        data("Jan", 10)
-                        data("Feb", 5)
-                        data("Mar", 8)
+                    bubblechart("bubblechart", NumberAxis(), NumberAxis()) {
+                        series("series 1") {
+                            data(1, 1, 1)
+                            data(5, 5, 0.25)
+                        }
                     }
-                    series("area 2") {
-                        data("Jan", 0.5)
-                        data("Feb", 3.25)
-                        data("Mar", 6.75)
+                    areachart("area chart", CategoryAxis(), NumberAxis()) {
+                        series("area 1") {
+                            data("Jan", 10)
+                            data("Feb", 5)
+                            data("Mar", 8)
+                        }
+                        series("area 2") {
+                            data("Jan", 0.5)
+                            data("Feb", 3.25)
+                            data("Mar", 6.75)
+                        }
                     }
-                }
-
-                scatterchart("scattered", javafx.scene.chart.CategoryAxis(), javafx.scene.chart.NumberAxis()) {
-                    series("scatter 1") {
-                        data("jan", 5)
-                        data("feb", 9)
-                    }
-                    series("scatter 2") {
-                        data("jan", 6)
-                        data("feb", .05)
-                        data("mar", 11)
+                    scatterchart("scattered", CategoryAxis(), NumberAxis()) {
+                        series("scatter 1") {
+                            data("jan", 5)
+                            data("feb", 9)
+                        }
+                        series("scatter 2") {
+                            data("jan", 6)
+                            data("feb", .05)
+                            data("mar", 11)
+                        }
                     }
                 }
             }

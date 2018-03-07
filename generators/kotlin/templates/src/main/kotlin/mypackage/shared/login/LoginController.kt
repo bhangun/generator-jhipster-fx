@@ -1,12 +1,12 @@
-package mypackage.shared.login
+package <%= packageName %>.shared.login
 
-import com.example.demo.account.UserForm
-import mypackage.shared.BaseController
-import mypackage.shared.home.HomeWorkspace
-import mypackage.shared.account.RegisterForm
+import <%= packageName %>.shared.BaseController
+import <%= packageName %>.shared.home.HomeWorkspace
+import <%= packageName %>.shared.account.RegisterView
 import javafx.application.Platform
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleStringProperty
+import <%= packageName %>.shared.account.UserForm
 import tornadofx.*
 import javax.json.JsonObject
 
@@ -14,7 +14,7 @@ class LoginController : Controller() {
     val base: BaseController by inject()
     val loginScreen: LoginView by inject()
     val home: HomeWorkspace by inject()
-    val registerView: RegisterForm by inject()
+    val registerView: RegisterView by inject()
     val userView: UserForm by inject()
     val api: Rest by inject()
 

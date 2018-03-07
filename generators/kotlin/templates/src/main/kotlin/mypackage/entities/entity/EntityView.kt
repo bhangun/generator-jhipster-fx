@@ -1,15 +1,27 @@
-package com.example.demo.account
+package <%= packageName %>.shared.account
 
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon.*
 import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
-import javafx.beans.property.BooleanProperty
-import javafx.beans.property.Property
-import javafx.beans.property.StringProperty
 import org.controlsfx.control.Notifications
 import tornadofx.*
-import java.time.LocalDate
 
-class UserForm : View("Register User") {
+class EntityFragment : Fragment("Entity View") {
+    val entityView : EntityList by inject()
+
+    override val root = borderpane()
+    init{
+        log.info("new entity fragment")
+        with(root) {
+            center = entityView.root
+        }
+    }
+}
+
+class EntityFragmentModel : ItemViewModel<EntityFragment>() {
+    val root = bind(EntityFragment::root)
+}
+
+class EntityForm : View("Register User") {
     val model : UserModel by inject()
 
     override val root = form {
@@ -36,14 +48,13 @@ class UserForm : View("Register User") {
                 //combobox {  }(model.authorities)
             }
         }
-
         button("Save") {
             action {
                 model.commit {
-                    val user = model.item
+                    val entity = model.item
                     Notifications.create()
-                            .title("Customer saved!")
-                            .text("${user.firstName} and ${user.email}")
+                            .title("Entity saved!")
+                            .text("${entity.firstName} and ${entity.email}")
                             .owner(this)
                             .showInformation()
                 }
@@ -51,6 +62,21 @@ class UserForm : View("Register User") {
             enableWhen(model.valid)
         }
     }
+}
 
+class EntityList : View() {
+    val entity: EntityController by inject()
+
+    override val root = pane {
+        tableview(entity.getAllEntity()) {
+            column("ID", Entity::idProperty)
+            column("Username", Entity::loginProperty)
+            column("First Name", Entity::firstNameProperty)
+            column("Last Name", Entity::lastNameProperty)
+            column("Email", Entity::emailProperty)
+            column("Activated", Entity::activatedProperty)
+            column("Authorities", Entity::authoritiesProperty).contentWidth(padding = 100.0)
+        }
+    }
 }
 

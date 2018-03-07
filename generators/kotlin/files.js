@@ -28,13 +28,14 @@ let kotlinDir;
 let kotlinNewDir;
 let projectName;
 
-function writeFiles(config) {
+function writeFiles() {
     return {
-
-        setUpKotlinDir() {
-            projectName = '../newProject/';
+        setUpJavaDir() {
+            this.log('================================');
+            this.log(this.packageFolder);
+            projectName = this.baseName;
             kotlinDir = `${constants.KOTLIN_TEMPLATE}/`;
-            kotlinNewDir = `${projectName + constants.KOTLIN_TEMPLATE}/`;
+            kotlinNewDir = `${this.packageFolder}/${constants.MAIN_DIR}kotlin/${projectName}/`;
         },
 
         cleanupOldServerFiles() {
@@ -42,9 +43,9 @@ function writeFiles(config) {
         },
 
         writeGlobalFiles() {
-            this.template('pom.xml', `${projectName}pom.xml`);
-            this.template('_README.md', `${projectName}README.md`);
-            this.template('gitignore', `${projectName}.gitignore`);
+            this.template('pom.xml', `${this.packageFolder}/pom.xml`);
+            this.template('_README.md', `${this.packageFolder}/README.md`);
+            this.template('gitignore', `${this.packageFolder}/.gitignore`);
         },
 
         writeServerResourceFiles() {
@@ -55,18 +56,17 @@ function writeFiles(config) {
             // this.template(`${kotlinDir}entities`, `${kotlinNewDir}entities`);
             // Shared root
             this.template(`${kotlinDir}shared/BaseController.kt`, `${kotlinNewDir}shared/BaseController.kt`);
-            this.template(`${kotlinDir}shared/Styles.kt`, `${kotlinNewDir}shared/Styles.kt`);
+            this.template(`${kotlinDir}shared/styles/Styles.kt`, `${kotlinNewDir}shared/styles/Styles.kt`);
             // Account
             this.template(`${kotlinDir}shared/account/RegisterController.kt`, `${kotlinNewDir}shared/account/RegisterController.kt`);
-            this.template(`${kotlinDir}shared/account/RegisterForm.kt`, `${kotlinNewDir}shared/account/RegisterForm.kt`);
+            this.template(`${kotlinDir}shared/account/RegisterView.kt`, `${kotlinNewDir}shared/account/RegisterView.kt`);
             this.template(`${kotlinDir}shared/account/User.kt`, `${kotlinNewDir}shared/account/User.kt`);
-            this.template(`${kotlinDir}shared/account/UserForm.kt`, `${kotlinNewDir}shared/account/UserForm.kt`);
-            this.template(`${kotlinDir}shared/account/UserFragment.kt`, `${kotlinNewDir}shared/account/UserFragment.kt`);
+            this.template(`${kotlinDir}shared/account/UserController.kt`, `${kotlinNewDir}shared/account/UserController.kt`);
             this.template(`${kotlinDir}shared/account/UserView.kt`, `${kotlinNewDir}shared/account/UserView.kt`);
             // Administration
             this.template(`${kotlinDir}shared/administration/ConfigurationFragment.kt`, `${kotlinNewDir}shared/administration/ConfigurationFragment.kt`);
             this.template(`${kotlinDir}shared/administration/HealthFragment.kt`, `${kotlinNewDir}shared/administration/HealthFragment.kt`);
-            this.template(`${kotlinDir}shared/administration/MetricsFragment.kt`, `${kotlinNewDir}shared/administration/MetricsFragment.kt`);
+            this.template(`${kotlinDir}shared/administration/MetricFragment.kt`, `${kotlinNewDir}shared/administration/MetricFragment.kt`);
             // Dashboard
             this.template(`${kotlinDir}shared/dashboard/DashboardFragment.kt`, `${kotlinNewDir}shared/dashboard/DashboardFragment.kt`);
             // Home

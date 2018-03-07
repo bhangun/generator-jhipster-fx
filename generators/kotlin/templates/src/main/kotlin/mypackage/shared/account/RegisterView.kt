@@ -1,13 +1,13 @@
-package mypackage.shared.account
+package <%= packageName %>.shared.account
 
 
-import mypackage.shared.Styles.Companion.loginScreen
+
 import javafx.scene.control.PasswordField
 import javafx.scene.control.TextField
 import javafx.scene.layout.GridPane
 import tornadofx.*
 
-class RegisterForm : View() {
+class RegisterView : View() {
     override val root = GridPane()
    // val registerController: RegisterController by inject()
     var username: TextField by singleAssign()
@@ -19,7 +19,7 @@ class RegisterForm : View() {
         title = "Please log in"
 
         with (root) {
-            addClass(loginScreen)
+           // addClass(loginScreen)
 
             row("Username") {
                 username = textfield()

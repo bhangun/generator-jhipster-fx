@@ -1,33 +1,74 @@
-package mypackage.shared.account
+package <%= packageName %>.shared.account
 
-import com.example.demo.account.User
-import mypackage.shared.BaseController
-import javafx.collections.FXCollections
-import javafx.collections.ObservableList
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon.*
+import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView
+import org.controlsfx.control.Notifications
 import tornadofx.*
 
-class UserView : View() {
-    val base: BaseController by inject()
-    var test = FXCollections.observableArrayList<String>()
+class UserFragment : Fragment("Entity View") {
+    val userView : UserList by inject()
 
-    fun createUsers(users: User){
-
+    override val root = borderpane()
+    init{
+        log.info("new entity fragment")
+        with(root) {
+            center = userView.root
+        }
     }
+}
 
-    fun getUsers(): ObservableList<User> {
-         return  base.api.get(base.API_USERS).list().toModel()
+class UserFragmentModel : ItemViewModel<UserFragment>() {
+    val root = bind(UserFragment::root)
+}
+
+class UserForm : View("Register User") {
+    val model : UserModel by inject()
+
+    override val root = form {
+        fieldset("User Information", FontAwesomeIconView(USER)) {
+            field("First Name") {
+                textfield(model.firstName).required()
+            }
+            field("Last Name") {
+                passwordfield(model.lastName)
+            }
+            field("Login") {
+                passwordfield(model.login)
+            }
+            field("Email") {
+                textfield(model.email).required()
+            }
+            field("Image URL") {
+                passwordfield(model.imageUrl)
+            }
+            field() {
+                checkbox("Activated")
+            }
+            field("Authorities") {
+                //combobox {  }(model.authorities)
+            }
+        }
+        button("Save") {
+            action {
+                model.commit {
+                    val user = model.item
+                    Notifications.create()
+                            .title("User saved!")
+                            .text("${user.firstName} and ${user.email}")
+                            .owner(this)
+                            .showInformation()
+                }
+            }
+            enableWhen(model.valid)
+        }
     }
+}
 
-    fun updateUsers(users: User){
-
-    }
-
-    fun deleteUser(login: String){
-      //  base.api.put(base.API_USER,"$login")
-    }
+class UserList : View() {
+    val user: EntityController by inject()
 
     override val root = pane {
-        tableview(getUsers()) {
+        tableview(user.getAllUsers()) {
             column("ID", User::idProperty)
             column("Username", User::loginProperty)
             column("First Name", User::firstNameProperty)
@@ -38,3 +79,4 @@ class UserView : View() {
         }
     }
 }
+
