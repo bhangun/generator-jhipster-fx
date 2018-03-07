@@ -24,7 +24,6 @@ module.exports = class extends BaseGenerator {
             defaults: true
         });
 
-        this.log('------masuk kotlin....');
         // const blueprint = this.options.blueprint || this.configOptions.blueprint || this.config.get('blueprint');
         // useBlueprint = this.composeBlueprint(blueprint, 'kotlin'); // use global variable since getters dont have access to instance property
     }
@@ -43,13 +42,11 @@ module.exports = class extends BaseGenerator {
                 this.log(this.packageName);
                 this.log(this.baseName);
                 this.log(this.packageFolder);
-                this.log('++++++++++++++++++++++');
             },
         };
     }
 
     get prompting() {
-        // return {};
         return {
         // askForModuleName: prompts.askForModuleName,
             setSharedConfigOptions() {
@@ -75,33 +72,7 @@ module.exports = class extends BaseGenerator {
     }
 
     install() {
-        /* let logMsg =
-            `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install`)}`;
-
-        if (this.clientFramework === 'angular1') {
-            logMsg =
-                `To install your dependencies manually, run: ${chalk.yellow.bold(`${this.clientPackageManager} install & bower install`)}`;
-        }
-        const injectDependenciesAndConstants = (err) => {
-            if (err) {
-                this.warning('Install of dependencies failed!');
-                this.log(logMsg);
-            } else if (this.clientFramework === 'angular1') {
-                this.spawnCommand('gulp', ['install']);
-            }
-        };
-        const installConfig = {
-            bower: this.clientFramework === 'angular1',
-            npm: this.clientPackageManager !== 'yarn',
-            yarn: this.clientPackageManager === 'yarn',
-            callback: injectDependenciesAndConstants
-        };
-        if (this.options['skip-install']) {
-            this.log(logMsg);
-        } else {
-            this.installDependencies(installConfig);
-        }
-        */
+        // this.spawnCommand('mvn', ['package']);
     }
 
     end() {

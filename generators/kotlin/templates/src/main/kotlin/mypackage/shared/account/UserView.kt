@@ -65,7 +65,7 @@ class UserForm : View("Register User") {
 }
 
 class UserList : View() {
-    val user: EntityController by inject()
+    val user: UserController by inject()
 
     override val root = pane {
         tableview(user.getAllUsers()) {

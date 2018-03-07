@@ -93,7 +93,6 @@ module.exports = class extends BaseGenerator {
         // if (useBlueprint) return;
         return {
             saveConfig() {
-                this.log('-----simpan config-----');
                 this.config.set('baseName', this.props.fxName);
                 this.config.set('packageName', this.props.packageName);
                 this.config.set('packageFolder', this.props.packageFolder);
@@ -132,13 +131,7 @@ module.exports = class extends BaseGenerator {
         this.log(`javaDir=${javaDir}`);
         this.log(`resourceDir=${resourceDir}`);
 
-        this.composeWith(require.resolve('../kotlin'), {
-            configOptions: this.configOptions,
-            namaBase: this.baseName,
-            packageFolder: this.packageFolder,
-            force: this.options.force,
-            debug: this.isDebugEnabled
-        });
+        this.composeWith(require.resolve('../kotlin'));
 
         try {
             this.registerModule('generator-jhipster-fx', 'entity', 'post', 'entity', 'Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application');

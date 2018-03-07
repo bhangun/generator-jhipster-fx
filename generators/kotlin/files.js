@@ -31,7 +31,6 @@ let projectName;
 function writeFiles() {
     return {
         setUpJavaDir() {
-            this.log('================================');
             this.log(this.packageFolder);
             projectName = this.baseName;
             kotlinDir = `${constants.KOTLIN_TEMPLATE}/`;
@@ -39,7 +38,7 @@ function writeFiles() {
         },
 
         cleanupOldServerFiles() {
-        //   cleanup.cleanupOldServerFiles(this, kotlinDir, this.testDir);
+        // cleanup.cleanupOldServerFiles(this, kotlinDir, this.testDir);
         },
 
         writeGlobalFiles() {
@@ -57,6 +56,7 @@ function writeFiles() {
             // Shared root
             this.template(`${kotlinDir}shared/BaseController.kt`, `${kotlinNewDir}shared/BaseController.kt`);
             this.template(`${kotlinDir}shared/styles/Styles.kt`, `${kotlinNewDir}shared/styles/Styles.kt`);
+            this.template(`${kotlinDir}shared/styles/LoginStyles.kt`, `${kotlinNewDir}shared/styles/LoginStyles.kt`);
             // Account
             this.template(`${kotlinDir}shared/account/RegisterController.kt`, `${kotlinNewDir}shared/account/RegisterController.kt`);
             this.template(`${kotlinDir}shared/account/RegisterView.kt`, `${kotlinNewDir}shared/account/RegisterView.kt`);

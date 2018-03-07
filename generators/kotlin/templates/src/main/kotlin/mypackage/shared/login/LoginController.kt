@@ -6,6 +6,7 @@ import <%= packageName %>.shared.account.RegisterView
 import javafx.application.Platform
 import javafx.beans.property.SimpleBooleanProperty
 import javafx.beans.property.SimpleStringProperty
+import <%= packageName %>.shared.account.UserController
 import <%= packageName %>.shared.account.UserForm
 import tornadofx.*
 import javax.json.JsonObject
@@ -16,6 +17,7 @@ class LoginController : Controller() {
     val home: HomeWorkspace by inject()
     val registerView: RegisterView by inject()
     val userView: UserForm by inject()
+    val user: UserController by inject()
     val api: Rest by inject()
 
     fun init() {
@@ -63,7 +65,7 @@ class LoginController : Controller() {
     }
 
     fun authenticate(username: String, password: String, remember: Boolean): String{
-        return base.api.post(base.API_USERS_AUTHENTICATE, LoginVM(username, password, remember).toJSON()).one().getJsonString("id_token").string
+        return base.api.post(user.API_USERS_AUTHENTICATE, LoginVM(username, password, remember).toJSON()).one().getJsonString("id_token").string
     }
 
     fun tryLogin(username: String, password: String, remember: Boolean) {
@@ -73,7 +75,6 @@ class LoginController : Controller() {
         } ui {
             loginScreen.clear()
         } success {
-            log.info("<<<<<"+token)
             base.setToken(token)
             with (config) {
                 set(TOKEN to token)
