@@ -3,14 +3,11 @@
 > JHipster module, Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application
 
 # Introduction
+(https://www.dropbox.com/s/ufmwraietkf4axe/jhipsterFX.PNG?dl=0)
 
 This is a JavaFx Application generate by JHipster FX
 
 # Installation
-
-
-
-## With Maven
 
 To install this module:
 

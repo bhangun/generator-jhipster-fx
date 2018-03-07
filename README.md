@@ -4,6 +4,8 @@
 
 # Introduction
 
+(https://www.dropbox.com/s/ufmwraietkf4axe/jhipsterFX.PNG?dl=0)
+
 This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application.
 
 # Prerequisites
