@@ -1,7 +1,7 @@
 package <%= packageName %>.shared.account
 
 import javafx.collections.ObservableList
-import mypackage.shared.BaseController
+import <%= packageName %>.shared.BaseController
 import tornadofx.*
 
 class EntityController : Controller() {
