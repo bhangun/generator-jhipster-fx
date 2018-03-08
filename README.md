@@ -4,7 +4,7 @@
 
 # Introduction
 
-![JHipsterFX] (https://github.com/bhangun/generator-jhipster-fx/blob/master/screenshot.PNG)
+![JHipsterFX] (https://github.com/bhangun/generator-jhipster-fx/raw/master/screenshot.PNG)
 
 This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application.
 
