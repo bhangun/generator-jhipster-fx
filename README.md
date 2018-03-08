@@ -4,7 +4,7 @@
 
 # Introduction
 
-![alt text] (https://www.dropbox.com/s/ufmwraietkf4axe/jhipsterFX.PNG)
+![JHipsterFX] (https://github.com/bhangun/generator-jhipster-fx/blob/master/screenshot.PNG)
 
 This is a [JHipster](http://jhipster.github.io/) module, that is meant to be used in a JHipster application.
 
@@ -51,12 +51,12 @@ yo jhipster-fx
 ```
 
 # Roadmap
-* [] Adding entity
-* [] Look & feel themes
-* [] Gradle support
-* [] FXML support
-* [] JDK 9/10 support
-* [] FXLauncher support
+* [ ] Adding entity
+* [ ] Look & feel themes & CSS
+* [ ] Gradle support
+* [ ] FXML support
+* [ ] JDK 9/10 support
+* [ ] FXLauncher support
 
 
 # License
