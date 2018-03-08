@@ -1,25 +1,115 @@
 const chalk = require('chalk');
-const packagejs = require('../../package.json');
+// const packagejs = require('../../package.json');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
+let useBlueprint;
+
 module.exports = class extends BaseGenerator {
+    constructor(args, opts) {
+        super(args, opts);
+
+        // This makes `name` a required argument.
+        this.argument('name', {
+            type: String,
+            required: true,
+            description: 'Entity name'
+        });
+
+        this.context = {};
+        this.setupEntityOptions(this, this, this.context);
+        const blueprint = this.config.get('blueprint');
+        useBlueprint = this.composeBlueprint(blueprint, 'entity');
+    }
+
     get initializing() {
-        return {
+        // if (useBlueprint) return;
+        return { /*
+            getConfig() {
+                const context = this.context;
+                context.useConfigurationFile = false;
+                this.env.options.appPath = this.config.get('appPath') || constants.CLIENT_MAIN_SRC_DIR;
+                context.options = this.options;
+            },
+
+            validateEntityName() {
+                const entityName = this.context.name;
+                if (!(/^([a-zA-Z0-9_]*)$/.test(entityName))) {
+                    this.error(chalk.red('The entity name cannot contain special characters'));
+                } else if ((/^[0-9].*$/.test(entityName))) {
+                    this.error(chalk.red('The entity name cannot start with a number'));
+                } else if (entityName === '') {
+                    this.error(chalk.red('The entity name cannot be empty'));
+                } else if (entityName.indexOf('Detail', entityName.length - 'Detail'.length) !== -1) {
+                    this.error(chalk.red('The entity name cannot end with \'Detail\''));
+                } else if (!this.context.skipServer && jhiCore.isReservedClassName(entityName)) {
+                    this.error(chalk.red('The entity name cannot contain a Java or JHipster reserved keyword'));
+                }
+            },
+
+            setupconsts() {
+                const context = this.context;
+                const entityName = context.name;
+                // Specific Entity sub-generator constants
+                if (!context.useConfigurationFile) {
+                    // no file present, new entity creation
+                    this.log(`\nThe entity ${entityName} is being created.\n`);
+                    context.fields = [];
+                    context.haveFieldWithJavadoc = false;
+                    context.relationships = [];
+                    context.pagination = 'no';
+                    context.validation = false;
+                    context.dto = 'no';
+                    context.service = 'no';
+                    context.jpaMetamodelFiltering = false;
+                } else {
+                    // existing entity reading values from file
+                    this.log(`\nThe entity ${entityName} is being updated.\n`);
+                    this.loadEntityJson();
+                }
+            },
+
+            validateTableName() {
+                const context = this.context;
+                const prodDatabaseType = context.prodDatabaseType;
+                const entityTableName = context.entityTableName;
+                const jhiTablePrefix = context.jhiTablePrefix;
+                const instructions = `You can specify a different table name in your JDL file or change it in .jhipster/${context.name}.json file and then run again 'jhipster entity ${context.name}.'`;
+
+                if (!(/^([a-zA-Z0-9_]*)$/.test(entityTableName))) {
+                    this.error(chalk.red(`The table name cannot contain special characters.\n${instructions}`));
+                } else if (entityTableName === '') {
+                    this.error(chalk.red('The table name cannot be empty'));
+                } else if (jhiCore.isReservedTableName(entityTableName, prodDatabaseType)) {
+                    this.warning(chalk.red(`The table name cannot contain the '${entityTableName.toUpperCase()}' reserved keyword, so it will be prefixed with '${jhiTablePrefix}_'.\n${instructions}`));
+                    context.entityTableName = `${jhiTablePrefix}_${entityTableName}`;
+                } else if (prodDatabaseType === 'oracle' && entityTableName.length > 26) {
+                    this.error(chalk.red(`The table name is too long for Oracle, try a shorter name.\n${instructions}`));
+                } else if (prodDatabaseType === 'oracle' && entityTableName.length > 14) {
+                    this.warning(`The table name is long for Oracle, long table names can cause issues when used to create constraint names and join table names.\n${instructions}`);
+                }
+            },
+*/
             readConfig() {
+                this.log(this.argument.entity);
                 this.entityConfig = this.options.entityConfig;
                 this.jhipsterAppConfig = this.getJhipsterAppConfig();
+
                 if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
                 }
+                this.log(this.jhipsterAppConfig.baseName);
+                this.log(this.entityConfig.coba);
             },
+
             displayLogo() {
-                this.log(chalk.white(`Running ${chalk.bold('JHipster rain')} Generator! ${chalk.yellow(`v${packagejs.version}\n`)}`));
+                // this.log(chalk.white(`Running ${chalk.bold('JHipster rain')} Generator! ${chalk.yellow(`v${packagejs.version}\n`)}`));
             },
+
             validate() {
                 // this shouldn't be run directly
                 if (!this.entityConfig) {
-                    this.env.error(`${chalk.red.bold('ERROR!')} This sub generator should be used only from JHipster and cannot be run directly...\n`);
+                    // this.env.error(`${chalk.red.bold('ERROR!')} This sub generator should be used only from JHipster and cannot be run directly...\n`);
                 }
             }
         };

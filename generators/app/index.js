@@ -8,12 +8,15 @@ module.exports = class extends BaseGenerator {
     get initializing() {
         return {
             init(args) {
-                if (args === 'default') {
-                    // do something when argument is 'default'
-                    this.log('Ini default....');
+                if (args === 'entity') {
+                    this.composeWith(require.resolve('../entity'), {
+                        entityConfig: { coba: args },
+                        arguments: [args]
+                    });
                 }
             },
             readConfig() {
+                this.log(this.arguments.entity);
                 this.jhipsterAppConfig = this.getJhipsterAppConfig();
                 if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
@@ -27,7 +30,7 @@ module.exports = class extends BaseGenerator {
                 this.log(`${chalk.bold.yellow('\\____/_/ /_/_/ .___/____/\\__/\\___/_/      ')}${chalk.bold.red('██║     ██╔╝ ██╗')}`);
                 this.log(`${chalk.bold.yellow('            /_/                           ')}${chalk.bold.red('╚═╝     ╚═╝  ╚═╝')}`);
                 // Have Yeoman greet the user.
-                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster FX ')}module generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
+                this.log(`\nWelcome to the ${chalk.bold.yellow('JHipster FX')} module generator! ${chalk.yellow(`v${packagejs.version}\n`)}`);
             },
             checkJhipster() {
                 const currentJhipsterVersion = this.jhipsterAppConfig.jhipsterVersion;

@@ -50,6 +50,15 @@ npm update -g generator-jhipster-fx
 yo jhipster-fx
 ```
 
+# Roadmap
+* [] Adding entity
+* [] Look & feel themes
+* [] Gradle support
+* [] FXML support
+* [] JDK 9/10 support
+* [] FXLauncher support
+
+
 # License
 
 Apache-2.0 © [bhangun hartani](http://bhangun.blogspot.com)
