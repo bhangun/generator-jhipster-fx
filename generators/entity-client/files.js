@@ -24,7 +24,7 @@ const constants = require('generator-jhipster/generators/generator-constants');
 
 /* Constants use throughout */
 const INTERPOLATE_REGEX = constants.INTERPOLATE_REGEX;
-const KOTLIN_DIR = 'src/main/kotlin/mypackage/';
+const KOTLIN_DIR = `src/main/kotlin/`;
 const MODELS_DIR = 'src/models/';
 
 const CLIENT_KOTLIN_TEMPLATES_DIR = 'kotlin';
@@ -40,16 +40,16 @@ const kotlinFiles = {
             path: KOTLIN_DIR,
             templates: [
                 {
-                    file: 'entities/entity/_entity.kt',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}.kt`
+                    file: 'entities/_entity.kt',
+                    renameTo: generator => `${generator}/entities/${generator.entityFolderName}/${generator.entityClass}.kt`
                 },
                 {
-                    file: 'entities/entity/_entityController.kt',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}Controller.kt`
+                    file: 'entities/_entityController.kt',
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityClass}Controller.kt`
                 },
                 {
-                    file: 'entities/entity/_entityView.kt',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityFileName}View.kt`
+                    file: 'entities/_entityView.kt',
+                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityClass}View.kt`
                 }
             ]
         }
@@ -62,8 +62,9 @@ module.exports = {
     kotlinFiles
 };
 
-function writeFiles() {
-    return {
+function writeFiles(coba) {
+    return { 
+        
         saveRemoteEntityPath() {
             if (_.isUndefined(this.microservicePath)) {
                 return;
@@ -72,6 +73,7 @@ function writeFiles() {
         },
 
         writeClientFiles() {
+            this.log(`>>>>>>>>${coba}>>>>>>>>>${this.jhipsterConfigDirectory.baseName}`);
             if (this.skipClient) return;
 
             // write client side files for angular

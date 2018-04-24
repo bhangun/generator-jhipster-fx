@@ -82,7 +82,7 @@ class UserController : Controller() {
     }
 
     fun getUsers(user : User): ObservableList<User> {
-        return  base.api.get(API_USERS).list().toModel()
+        return  base.api.get(API_USERS, user).list().toModel()
     }
 
     fun updateUsers(users: User){

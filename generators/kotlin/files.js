@@ -51,10 +51,6 @@ function writeFiles() {
             // Create Java resource files
             mkdirp(kotlinDir);
             this.template(`${kotlinDir}MainApp.kt`, `${kotlinNewDir}MainApp.kt`);
-            // Entities
-            this.template(`${kotlinDir}entities/entity/Entity.kt`, `${kotlinNewDir}entities/entity/Entity.kt`);
-            this.template(`${kotlinDir}entities/entity/EntityController.kt`, `${kotlinNewDir}entities/entity/EntityController.kt`);
-            this.template(`${kotlinDir}entities/entity/EntityView.kt`, `${kotlinNewDir}entities/entity/EntityView.kt`);
             // Shared root
             this.template(`${kotlinDir}shared/BaseController.kt`, `${kotlinNewDir}shared/BaseController.kt`);
             this.template(`${kotlinDir}shared/styles/Styles.kt`, `${kotlinNewDir}shared/styles/Styles.kt`);
