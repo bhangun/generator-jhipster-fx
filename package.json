@@ -1,6 +1,6 @@
 {
   "name": "generator-jhipster-fx",
-  "version": "0.3.4",
+  "version": "0.3.5",
   "description": "Generate desktop application interface using JavaFX instead of JHipster as an Angular/web application front end",
   "keywords": [
     "yeoman-generator",
