@@ -21,13 +21,7 @@ class LoginController : Controller() {
     val api: Rest by inject()
 
     fun init() {
-        with (config) {
-            if (containsKey(TOKEN)) {
-                showWorkbench()
-            }else {
-                showLogin("Please log in")
-            }
-        }
+       
     }
 
     fun showLogin(message: String, shake: Boolean = false) {
@@ -42,14 +36,6 @@ class LoginController : Controller() {
         Platform.runLater {
             loginScreen.username.requestFocus()
             if (shake) loginScreen.shakeStage()
-        }
-    }
-
-    fun showWorkbench() {
-        if (FX.primaryStage.scene.root != home.root) {
-            FX.primaryStage.scene.root = home.root
-            FX.primaryStage.sizeToScene()
-            FX.primaryStage.centerOnScreen()
         }
     }
 
@@ -80,7 +66,10 @@ class LoginController : Controller() {
                 set(TOKEN to token)
                 save()
             }
-            showWorkbench()
+            
+            loginScreen.replaceWith(HomeWorkspace::class,
+                    transition = ViewTransition.FadeThrough(1.seconds))
+
         } fail {
             showLogin("Login failed. Please try again.", true)
         }

@@ -1,22 +1,38 @@
 package <%= packageName %>.shared.home
 
-import javafx.application.Platform
 import javafx.scene.control.Menu
+import <%= packageName %>.shared.login.LoginController
+import <%= packageName %>.shared.login.LoginView
 import tornadofx.*
 
 
-class HomeWorkspace : Workspace("JHipster FX") {
+class HomeWorkspace : Workspace("<%= baseName %>") {
     val homeController : HomeController by inject()
     override fun onDock() {
-        log.info("On dock")
+        primaryStage.width = 1024.0
+        primaryStage.height = 768.0
     }
 
     override fun onRefresh() {
-        log.info("seger")
        // customerTable.asyncItems { customerController.listCustomers() }
     }
     init {
         menubar {
+            menu("File") {
+                item("Dashboard").action {
+                    dock(homeController.dashboard())
+                }
+                item("New").action {
+                    log.info("Opening text file")
+                    dock(homeController.newEntity(), true)
+                }
+                separator()
+                item("Close all").action {
+                    workspace.dock(EmptyView(),true)
+                }
+                separator()
+                openWindowMenuItemsAtfer()
+            }
             menu("Entities") {
                 item("New").action {
                     log.info("Opening text file")
@@ -47,17 +63,17 @@ class HomeWorkspace : Workspace("JHipster FX") {
                 item("About...")
             }
             menu("Account") {
+                item("Logout").action {
+                    this@HomeWorkspace.replaceWith(LoginView::class,
+                        transition = ViewTransition.FadeThrough(1.seconds))
 
+                    with (config) {
+                        remove(LoginController.TOKEN)
+                        save()
+                    }
+                }
             }
-            menu("Exit").action {
-                log.info("exit ")
-                Platform.exit()
-            }
-
-            button("Exit").action {
-                log.info("Leaving workspace")
-                Platform.exit()
-            }
+            
         }
 
        dock(homeController.dashboard(),true)

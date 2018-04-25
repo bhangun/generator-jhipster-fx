@@ -9,6 +9,7 @@ import javafx.scene.control.TextField
 import javafx.scene.control.Hyperlink
 import javafx.scene.layout.GridPane
 import javafx.util.Duration
+import <%= packageName %>.shared.home.HomeWorkspace
 import <%= packageName %>.shared.styles.LoginStyles.Companion.loginStyle
 import <%= packageName %>.shared.styles.Styles.Companion.baseStyle
 import tornadofx.*
@@ -108,5 +109,10 @@ class LoginView : View() {
 
         timelineX.play()
         timelineY.play()
+    }
+
+    override fun onDock() {
+        primaryStage.width = 480.0
+        primaryStage.height = 200.0
     }
 }
