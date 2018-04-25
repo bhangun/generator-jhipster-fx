@@ -16,10 +16,9 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.log(this.arguments.entity);
                 this.jhipsterAppConfig = this.getJhipsterAppConfig();
                 if (!this.jhipsterAppConfig) {
-                    this.error('Ups! Can\'t read .yo-rc.json');
+                    this.error('Can\'t read .yo-rc.json');
                 }
             },
             displayLogo() {
@@ -57,15 +56,15 @@ module.exports = class extends BaseGenerator {
                 name: 'packageName',
                 validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ?
                     true : 'The package name you have provided is not a valid Java package name.'),
-                message: 'What is your default JavaFX package name?',
+                message: 'What is your package name?',
                 default: this.jhipsterAppConfig.packageName,
                 store: true
             },
             {
                 type: 'input',
-                name: 'packageFolder',
-                message: 'Where your apps path folder would be put?',
-                default: `../${this.jhipsterAppConfig.baseName}FX`
+                name: 'path',
+                message: 'Where your apps path folder would be put?(relative/absolute)',
+                default: `../`
             },
             {
                 type: 'list',
@@ -88,7 +87,7 @@ module.exports = class extends BaseGenerator {
         const done = this.async();
         this.prompt(prompts).then((props) => {
             this.props = props;
-            this.log(this.props.packageName);
+            // this.log(this.props.packageName);
             done();
         });
     }
@@ -98,7 +97,8 @@ module.exports = class extends BaseGenerator {
             saveConfig() {
                 this.config.set('baseName', this.props.fxName);
                 this.config.set('packageName', this.props.packageName);
-                this.config.set('packageFolder', this.props.packageFolder);
+                this.config.set('path', this.props.path);
+                this.config.set('packageFolder', `${this.props.path}${this.props.fxName}`);
             }
         };
     }
@@ -116,17 +116,19 @@ module.exports = class extends BaseGenerator {
         this.message = this.props.message;
         this.baseName = this.props.fxName;
         this.packageName = this.props.packageName;
-        this.packageFolder = this.props.packageFolder;
+        this.path = this.props.path;
+        this.packageFolder = `${this.props.path}${this.props.fxName}`;
         this.buildTool = this.props.buildTool;
 
         // use constants from generator-constants.js
-        const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.packageFolder}/`;
+        const javaDir = `${jhipsterConstants.SERVER_MAIN_SRC_DIR + this.path}/`;
         const resourceDir = jhipsterConstants.SERVER_MAIN_RES_DIR;
         // variable from questions
         // show all variables
         this.log('\n--- some config read from config ---');
         this.log(`baseName=${this.baseName}`);
         this.log(`packageName=${this.packageName}`);
+        this.log(`path=${this.path}`);
         this.log(`packageFolder=${this.packageFolder}`);
         this.log(`buildTool=${this.buildTool}`);
 

@@ -31,10 +31,10 @@ let projectName;
 function writeFiles() {
     return {
         setUpJavaDir() {
-            this.log(this.packageFolder);
+            this.log(`${this.packageName} --- ${this.packageFolder}`);
             projectName = this.baseName;
             kotlinDir = `${constants.KOTLIN_TEMPLATE}/`;
-            kotlinNewDir = `${this.packageFolder}/${constants.MAIN_DIR}kotlin/${projectName}/`;
+            kotlinNewDir = `${this.packageFolder}/${constants.MAIN_DIR}kotlin/${this.packageName.replace('.','/')}/`;
         },
 
         cleanupOldServerFiles() {

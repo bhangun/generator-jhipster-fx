@@ -82,7 +82,7 @@ class EntityController : Controller() {
     }
 
     fun getUsers(user : User): ObservableList<Entity> {
-        return  base.api.get(API_ENTITIES).list().toModel()
+        return  base.api.get(API_ENTITIES, user).list().toModel()
     }
 
     fun updateUsers(users: User){
