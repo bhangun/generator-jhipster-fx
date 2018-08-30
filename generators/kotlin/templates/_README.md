@@ -19,7 +19,15 @@ npm install -g generator-jhipster-fx
 # Usage
 
 ```bash
-yo jhipster-fx
+---------STEP 1------------
+$ cd yourJhipsterGatewayOrMonolithic
+$ yo jhipster-fx 
+<answer the question>
+...
+
+--------STEP 2-----------
+$ cd yourGeneratedFxApps
+$ mvn jfx:run
 ```
 
 # License

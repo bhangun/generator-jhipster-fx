@@ -73,7 +73,7 @@ function writeFiles(coba) {
         },
 
         writeClientFiles() {
-            this.log(`>>>>>>>>${coba}>>>>>>>>>${this.jhipsterConfigDirectory.baseName}`);
+            this.log(`>>>>>>>>${coba}>>>>${this.entityFolderName}>>>>>${this.jhipsterConfigDirectory.baseName}`);
             if (this.skipClient) return;
 
             // write client side files for angular

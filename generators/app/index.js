@@ -99,6 +99,9 @@ module.exports = class extends BaseGenerator {
                 this.config.set('packageName', this.props.packageName);
                 this.config.set('path', this.props.path);
                 this.config.set('packageFolder', `${this.props.path}${this.props.fxName}`);
+
+                this.config.set('namaku', "bhangun");
+                this.config.set('cobalg', "bhangun");
             }
         };
     }
