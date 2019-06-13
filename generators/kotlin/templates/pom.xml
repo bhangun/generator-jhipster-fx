@@ -27,8 +27,8 @@
     <name><%= baseName %></name>
     
     <properties>
-        <kotlin.version>1.2.21</kotlin.version>
-        <tornadofx.version>1.7.17</tornadofx.version>
+        <kotlin.version>1.3.20</kotlin.version>
+        <tornadofx.version>1.7.19</tornadofx.version>
         <fontawesomefx.version>8.9</fontawesomefx.version>
         <controlsfx.version>8.40.14</controlsfx.version>
     </properties>

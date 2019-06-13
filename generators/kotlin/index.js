@@ -1,6 +1,6 @@
 // const chalk = require('chalk');
-const writeFiles = require('./files').writeFiles;
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
+const writeFiles = require('./files').writeFiles;
 // const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
 
 // let useBlueprint;
