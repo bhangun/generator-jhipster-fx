@@ -1,8 +1,8 @@
 const chalk = require('chalk');
-const packagejs = require('../../package.json');
 const semver = require('semver');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const jhipsterConstants = require('generator-jhipster/generators/generator-constants');
+const packagejs = require('../../package.json');
 
 module.exports = class extends BaseGenerator {
     get initializing() {
@@ -16,7 +16,7 @@ module.exports = class extends BaseGenerator {
                 }
             },
             readConfig() {
-                this.jhipsterAppConfig = this.getJhipsterAppConfig();
+                this.jhipsterAppConfig = this.getAllJhipsterConfig();
                 if (!this.jhipsterAppConfig) {
                     this.error('Can\'t read .yo-rc.json');
                 }
@@ -54,8 +54,8 @@ module.exports = class extends BaseGenerator {
             {
                 type: 'input',
                 name: 'packageName',
-                validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input) ?
-                    true : 'The package name you have provided is not a valid Java package name.'),
+                validate: input => (/^([a-z_]{1}[a-z0-9_]*(\.[a-z_]{1}[a-z0-9_]*)*)$/.test(input)
+                    ? true : 'The package name you have provided is not a valid Java package name.'),
                 message: 'What is your package name?',
                 default: this.jhipsterAppConfig.packageName,
                 store: true
@@ -64,7 +64,7 @@ module.exports = class extends BaseGenerator {
                 type: 'input',
                 name: 'path',
                 message: 'Where your apps path folder would be put?(relative/absolute)',
-                default: `../`
+                default: '../'
             },
             {
                 type: 'list',
@@ -91,6 +91,7 @@ module.exports = class extends BaseGenerator {
             done();
         });
     }
+
     get configuring() {
         // if (useBlueprint) return;
         return {
@@ -100,8 +101,8 @@ module.exports = class extends BaseGenerator {
                 this.config.set('path', this.props.path);
                 this.config.set('packageFolder', `${this.props.path}${this.props.fxName}`);
 
-                this.config.set('namaku', "bhangun");
-                this.config.set('cobalg', "bhangun");
+                this.config.set('namaku', 'bhangun');
+                this.config.set('cobalg', 'bhangun');
             }
         };
     }
