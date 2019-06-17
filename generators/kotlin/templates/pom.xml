@@ -30,7 +30,7 @@
         <kotlin.version>1.3.20</kotlin.version>
         <tornadofx.version>1.7.19</tornadofx.version>
         <fontawesomefx.version>8.9</fontawesomefx.version>
-        <controlsfx.version>8.40.14</controlsfx.version>
+        <controlsfx.version>11.0.0</controlsfx.version>
     </properties>
 
     <dependencies>

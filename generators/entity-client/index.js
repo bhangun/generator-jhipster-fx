@@ -18,9 +18,9 @@
  */
 /* eslint-disable consistent-return */
 const chalk = require('chalk');
-const writeFiles = require('./files').writeFiles;
 const utils = require('generator-jhipster/generators/utils');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
+const writeFiles = require('./files').writeFiles;
 
 let useBlueprint;
 
@@ -29,21 +29,17 @@ module.exports = class extends BaseGenerator {
         super(args, opts);
         utils.copyObjectProps(this, this.options.context);
         const blueprint = this.config.get('blueprint');
-
-        this.log(`-------${this.appname}`);
-
-
         useBlueprint = this.composeBlueprint(blueprint, 'entity'); // use global variable since getters dont have access to instance property
     }
 
     get writing() {
         if (useBlueprint) return;
-        return writeFiles(useBlueprint.entityClass);
+        return writeFiles();
     }
 
     end() {
         if (useBlueprint) return;
-        this.log(chalk.bold.green('Entity generation completed. You may have to stop/start "mvn ......" to see your new entity.'));
+        this.log(chalk.bold.green('Entity generation completed. You may need to click "r" or "R" in your terminal to see your new entity.'));
     }
 
 
@@ -52,34 +48,74 @@ module.exports = class extends BaseGenerator {
      *
      * @param {string} entityInstance - Entity Instance
      * @param {string} entityClass - Entity Class
-     * @param {string} entityAngularName - Entity Angular Name
+     * @param {string} entityClass - Entity Angular Name
      * @param {string} entityFolderName - Entity Folder Name
      * @param {string} entityFileName - Entity File Name
      * @param {boolean} enableTranslation - If translations are enabled or not
      */
-    addEntityToModule(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
+    addEntityToRoute(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
         // workaround method being called on initialization
-        if (!entityAngularName) {
+        if (!entityClass) {
             return;
         }
-        const entityPagePath = 'src/pages/entities/entity.ts';
+        const entityPagePath = 'lib/services/routes.dart';
         try {
-            const page = `{name: '${entityAngularName}', component: '${entityAngularName}Page'},`;
+            const page2 = `import '../pages/${entityInstance}/${entityInstance}.list.dart';`;
             utils.rewriteFile({
                 file: entityPagePath,
-                needle: 'jhipster-needle-add-entity-page',
+                needle: 'kutilang-needle-add-import-route',
+                splicable: [
+                    this.stripMargin(page2)
+                ]
+            }, this);
+
+            const page = `"/${entityInstance}": (BuildContext context) => ${entityClass}ListPage(),`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-route',
                 splicable: [
                     this.stripMargin(page)
                 ]
             }, this);
         } catch (e) {
-            this.log(`${chalk.yellow('\nUnable to find ') + entityPagePath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityAngularName} ${chalk.yellow(`not added to ${entityPagePath}.\n`)}`);
+            this.log(`${chalk.yellow('\nUnable to find ') + entityPagePath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityClass} ${chalk.yellow(`not added to ${entityPagePath}.\n`)}`);
             this.debug('Error:', e);
         }
     }
 
     /**
-     * Generate Entity Queries for Ionic Providers
+     * Add a new entity in the TS modules file.
+     *
+     * @param {string} entityInstance - Entity Instance
+     * @param {string} entityClass - Entity Class
+     * @param {string} entityClass - Entity Angular Name
+     * @param {string} entityFolderName - Entity Folder Name
+     * @param {string} entityFileName - Entity File Name
+     * @param {boolean} enableTranslation - If translations are enabled or not
+     */
+    addEntityToDrawer(entityInstance, entityClass, entityAngularName, entityFolderName, entityFileName, enableTranslation) {
+        // workaround method being called on initialization
+        if (!entityClass) {
+            return;
+        }
+        const entityPagePath = 'lib/widgets/drawer.dart';
+        try {
+            const page2 = `list.add(_listTitle("${entityClass}", context,"/${entityInstance}"));`;
+            utils.rewriteFile({
+                file: entityPagePath,
+                needle: 'kutilang-needle-add-drawer',
+                splicable: [
+                    this.stripMargin(page2)
+                ]
+            }, this);
+        } catch (e) {
+            this.log(`${chalk.yellow('\nUnable to find ') + entityPagePath + chalk.yellow(' or missing required jhipster-needle. Reference to ') + entityClass} ${chalk.yellow(`not added to ${entityPagePath}.\n`)}`);
+            this.debug('Error:', e);
+        }
+    }
+
+    /**
+     * Generate Entity Queries for Flutter Providers
      *
      * @param {Array|Object} relationships - array of relationships
      * @param {string} entityInstance - entity instance
@@ -104,12 +140,11 @@ module.exports = class extends BaseGenerator {
                     variableName += 'Collection';
                 }
                 const relationshipFieldName = `this.${entityInstance}.${relationship.relationshipFieldName}`;
-                const relationshipFieldNameIdCheck = dto === 'no' ?
-                    `!${relationshipFieldName} || !${relationshipFieldName}.id` :
-                    `!${relationshipFieldName}Id`;
+                const relationshipFieldNameIdCheck = dto === 'no'
+                    ? `!${relationshipFieldName} || !${relationshipFieldName}.id`
+                    : `!${relationshipFieldName}Id`;
 
-                query =
-                    `this.${relationship.otherEntityName}Service
+                query = `this.${relationship.otherEntityName}Service
             .query({filter: '${relationship.otherEntityRelationshipName.toLowerCase()}-is-null'})
             .subscribe(data => {
                 if (${relationshipFieldNameIdCheck}) {
@@ -117,7 +152,7 @@ module.exports = class extends BaseGenerator {
                 } else {
                     this.${relationship.otherEntityName}Service
                         .find(${relationshipFieldName}${dto === 'no' ? '.id' : 'Id'})
-                        .subscribe((subData: ${relationship.otherEntityAngularName}) => {
+                        .subscribe((subData: ${relationship.otherentityClass}) => {
                             this.${variableName} = [subData].concat(subData);
                         }, (error) => this.onError(error));
                 }
@@ -127,13 +162,12 @@ module.exports = class extends BaseGenerator {
                 if (variableName === entityInstance) {
                     variableName += 'Collection';
                 }
-                query =
-                    `this.${relationship.otherEntityName}Service.query()
+                query = `this.${relationship.otherEntityName}Service.query()
             .subscribe(data => { this.${variableName} = data; }, (error) => this.onError(error));`;
             }
             if (variableName && !this.contains(queries, query)) {
                 queries.push(query);
-                variables.push(`${variableName}: ${relationship.otherEntityAngularName}[];`);
+                variables.push(`${variableName}: ${relationship.otherentityClass}[];`);
             }
         });
         return {

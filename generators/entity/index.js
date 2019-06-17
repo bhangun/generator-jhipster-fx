@@ -21,11 +21,11 @@ const chalk = require('chalk');
 const _ = require('lodash');
 const shelljs = require('shelljs');
 const pluralize = require('pluralize');
-const prompts = require('./prompts');
 const jhiCore = require('jhipster-core');
 const BaseGenerator = require('generator-jhipster/generators/generator-base');
 const constants = require('generator-jhipster/generators/generator-constants');
 const jhipsterUtils = require('generator-jhipster/generators/utils');
+const prompts = require('./prompts');
 
 /* constants used throughout */
 const SUPPORTED_VALIDATION_RULES = constants.SUPPORTED_VALIDATION_RULES;
@@ -34,8 +34,9 @@ let useBlueprint;
 module.exports = class extends BaseGenerator {
     constructor(args, opts) {
         super(args, opts);
-        jhipsterUtils.copyObjectProps(this, this.options.context);
 
+        this.log('>>>>>>>>>>>>>'+process.cwd());
+        jhipsterUtils.copyObjectProps(this, this.options.context);
         // This makes `name` a required argument.
         this.argument('name', {
             type: String,
@@ -382,8 +383,8 @@ module.exports = class extends BaseGenerator {
                 context.entityFolderName = context.entityFileName;
                 context.entityPluralFileName = entityNamePluralizedAndSpinalCased + context.entityAngularJSSuffix;
                 context.entityServiceFileName = context.entityFileName;
-                context.entityAngularName = context.entityClass + _.upperFirst(_.camelCase(context.entityAngularJSSuffix));
-                context.entityStateName = _.kebabCase(context.entityAngularName);
+                context.entityClass = context.entityClass + _.upperFirst(_.camelCase(context.entityAngularJSSuffix));
+                context.entityStateName = _.kebabCase(context.entityClass);
                 context.entityUrl = context.entityStateName;
                 context.entityTranslationKey = context.entityInstance;
                 context.entityTranslationKeyMenu = _.camelCase(context.entityStateName);
@@ -462,8 +463,8 @@ module.exports = class extends BaseGenerator {
                     }
 
                     if (_.isUndefined(field.fieldValidateRulesPatternJava)) {
-                        field.fieldValidateRulesPatternJava = field.fieldValidateRulesPattern ?
-                            field.fieldValidateRulesPattern.replace(/\\/g, '\\\\').replace(/"/g, '\\"') : field.fieldValidateRulesPattern;
+                        field.fieldValidateRulesPatternJava = field.fieldValidateRulesPattern
+                            ? field.fieldValidateRulesPattern.replace(/\\/g, '\\\\').replace(/"/g, '\\"') : field.fieldValidateRulesPattern;
                     }
 
                     if (_.isArray(field.fieldValidateRules) && field.fieldValidateRules.length >= 1) {
@@ -521,9 +522,9 @@ module.exports = class extends BaseGenerator {
                         relationship.relationshipFieldNamePlural = pluralize(_.lowerFirst(relationship.relationshipName));
                     }
 
-                    if (_.isUndefined(relationship.otherEntityRelationshipNamePlural) && (relationship.relationshipType === 'one-to-many' ||
-                        (relationship.relationshipType === 'many-to-many' && relationship.ownerSide === false) ||
-                        (relationship.relationshipType === 'one-to-one' && relationship.otherEntityName.toLowerCase() !== 'user'))) {
+                    if (_.isUndefined(relationship.otherEntityRelationshipNamePlural) && (relationship.relationshipType === 'one-to-many'
+                        || (relationship.relationshipType === 'many-to-many' && relationship.ownerSide === false)
+                        || (relationship.relationshipType === 'one-to-one' && relationship.otherEntityName.toLowerCase() !== 'user'))) {
                         relationship.otherEntityRelationshipNamePlural = pluralize(relationship.otherEntityRelationshipName);
                     }
 
@@ -566,12 +567,12 @@ module.exports = class extends BaseGenerator {
                         relationship.otherEntityNameCapitalized = _.upperFirst(relationship.otherEntityName);
                     }
 
-                    if (_.isUndefined(relationship.otherEntityAngularName)) {
+                    if (_.isUndefined(relationship.otherentityClass)) {
                         if (relationship.otherEntityNameCapitalized !== 'User') {
                             const otherEntityAngularSuffix = otherEntityData ? otherEntityData.angularJSSuffix || '' : '';
-                            relationship.otherEntityAngularName = _.upperFirst(relationship.otherEntityName) + _.upperFirst(_.camelCase(otherEntityAngularSuffix));
+                            relationship.otherentityClass = _.upperFirst(relationship.otherEntityName) + _.upperFirst(_.camelCase(otherEntityAngularSuffix));
                         } else {
-                            relationship.otherEntityAngularName = 'User';
+                            relationship.otherentityClass = 'User';
                         }
                     }
 
@@ -584,7 +585,7 @@ module.exports = class extends BaseGenerator {
                     }
 
                     if (_.isUndefined(relationship.otherEntityStateName)) {
-                        relationship.otherEntityStateName = _.kebabCase(relationship.otherEntityAngularName);
+                        relationship.otherEntityStateName = _.kebabCase(relationship.otherentityClass);
                     }
                     if (_.isUndefined(relationship.otherEntityModuleName)) {
                         if (relationship.otherEntityNameCapitalized !== 'User') {
@@ -624,19 +625,6 @@ module.exports = class extends BaseGenerator {
 
                 context.pkType = this.getPkType(context.databaseType);
             },
-
-            insight() {
-                // track insights
-                const insight = this.insight();
-                const context = this.context;
-                insight.trackWithEvent('generator', 'entity');
-                insight.track('entity/fields', context.fields.length);
-                insight.track('entity/relationships', context.relationships.length);
-                insight.track('entity/pagination', context.pagination);
-                insight.track('entity/dto', context.dto);
-                insight.track('entity/service', context.service);
-                insight.track('entity/fluentMethods', context.fluentMethods);
-            }
         };
     }
 
@@ -696,10 +684,10 @@ module.exports = class extends BaseGenerator {
                             entityTranslationKey: this.entityTranslationKey
                         };
                         // run through all post entity creation module hooks
-                        this.callHooks('entity', 'post', {
+                        /* this.callHooks('entity', 'post', {
                             entityConfig,
                             force: this.options.force
-                        }, done);
+                        }, done); */
                     } else {
                         done();
                     }

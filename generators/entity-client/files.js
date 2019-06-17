@@ -17,40 +17,45 @@
  * limitations under the License.
  */
 const _ = require('lodash');
-const randexp = require('randexp');
-const chalk = require('chalk');
-const fs = require('fs');
-const constants = require('generator-jhipster/generators/generator-constants');
 
-/* Constants use throughout */
-const INTERPOLATE_REGEX = constants.INTERPOLATE_REGEX;
-const KOTLIN_DIR = `src/main/kotlin/`;
-const MODELS_DIR = 'src/models/';
+const FLUTTER_DIR = 'lib/pages/';
 
-const CLIENT_KOTLIN_TEMPLATES_DIR = 'kotlin';
+const CLIENT_FLUTTER_TEMPLATES_DIR = 'flutter';
 
 /**
  * The default is to use a file path string. It implies use of the template method.
  * For any other config an object { file:.., method:.., template:.. } can be used
  */
 
-const kotlinFiles = {
+const flutterFiles = {
     client: [
         {
-            path: KOTLIN_DIR,
+            path: FLUTTER_DIR,
             templates: [
                 {
-                    file: 'entities/_entity.kt',
-                    renameTo: generator => `${generator}/entities/${generator.entityFolderName}/${generator.entityClass}.kt`
+                    file: 'entity',
+                    renameTo: generator => `../models/${generator.entityFileName}.dart`
                 },
                 {
-                    file: 'entities/_entityController.kt',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityClass}Controller.kt`
+                    file: 'entity.list',
+                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.list.dart`
                 },
                 {
-                    file: 'entities/_entityView.kt',
-                    renameTo: generator => `entities/${generator.entityFolderName}/${generator.entityClass}View.kt`
-                }
+                    file: 'entity.detail',
+                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.detail.dart`
+                },
+                {
+                    file: 'entity.form',
+                    renameTo: generator => `${generator.entityFolderName}/${generator.entityFileName}.form.dart`
+                },
+                {
+                    file: 'entity.helper',
+                    renameTo: generator => `../services/entity_services/${generator.entityFileName}.service.dart`
+                },
+                /*  {
+                    file: 'index',
+                    renameTo: generator => `entities/${generator.entityFolderName}/index.dart`
+                }, */
             ]
         }
     ]
@@ -59,36 +64,33 @@ const kotlinFiles = {
 
 module.exports = {
     writeFiles,
-    kotlinFiles
+    flutterFiles
 };
 
-function writeFiles(coba) {
-    return { 
-        
-        saveRemoteEntityPath() {
+function writeFiles() {
+    return {
+        /* saveRemoteEntityPath() {
             if (_.isUndefined(this.microservicePath)) {
                 return;
             }
             this.copy(`${this.microservicePath}/${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`, this.destinationPath(`${this.jhipsterConfigDirectory}/${this.entityNameCapitalized}.json`));
-        },
+        }, */
 
         writeClientFiles() {
-            this.log(`>>>>>>>>${coba}>>>>${this.entityFolderName}>>>>>${this.jhipsterConfigDirectory.baseName}`);
             if (this.skipClient) return;
 
             // write client side files for angular
-            this.writeFilesToDisk(kotlinFiles, this, false, CLIENT_KOTLIN_TEMPLATES_DIR);
-            this.addEntityToModule(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
-
+            this.writeFilesToDisk(flutterFiles, this, false, CLIENT_FLUTTER_TEMPLATES_DIR);
+            this.addEntityToRoute(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
+            this.addEntityToDrawer(this.entityInstance, this.entityClass, this.entityAngularName, this.entityFolderName, this.entityFileName, this.enableTranslation);
+           
             // Copy for each
             if (this.enableTranslation) {
                 const languages = this.languages || this.getAllInstalledLanguages();
                 languages.forEach((language) => {
-                    //this.copyI18n(language, CLIENT_I18N_TEMPLATES_DIR);
+                    // this.copyI18n(language, CLIENT_I18N_TEMPLATES_DIR);
                 });
             }
         }
     };
-
-
 }
