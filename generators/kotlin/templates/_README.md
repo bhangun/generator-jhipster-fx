@@ -15,6 +15,9 @@ To install this module:
 npm install -g generator-jhipster-fx
 ```
 
+```bash
+sudo apt-get install openjfx
+```
 
 # Usage
 
@@ -27,7 +30,7 @@ $ yo jhipster-fx
 
 --------STEP 2-----------
 $ cd yourGeneratedFxApps
-$ mvn jfx:run
+$ mvn javafx:run
 ```
 
 # License
