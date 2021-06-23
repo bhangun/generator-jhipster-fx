@@ -27,10 +27,10 @@
     <name><%= baseName %></name>
     
     <properties>
-        <kotlin.version>1.3.20</kotlin.version>
-        <tornadofx.version>1.7.19</tornadofx.version>
+        <kotlin.version>1.4.32</kotlin.version>
+        <tornadofx.version>1.7.20</tornadofx.version>
         <fontawesomefx.version>8.9</fontawesomefx.version>
-        <controlsfx.version>11.0.0</controlsfx.version>
+        <controlsfx.version>11.1.0</controlsfx.version>
     </properties>
 
     <dependencies>
@@ -60,6 +60,11 @@
             <version>${kotlin.version}</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>12.0.1</version>
+        </dependency>        
     </dependencies>
 
     <build>
@@ -77,7 +82,7 @@
                             <goal>compile</goal>
                         </goals>
                         <configuration>
-                        <jvmTarget>1.8</jvmTarget>
+                        <jvmTarget>11</jvmTarget>
                         </configuration>
                     </execution>
                     <execution>
@@ -90,9 +95,9 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>com.zenjava</groupId>
+                <groupId>org.openjfx</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
-                <version>8.8.3</version>
+                <version>0.0.6</version>
                 <configuration>
                     <vendor><%= baseName %></vendor>
                     <mainClass><%= packageName %>.MainApp</mainClass>
