@@ -44,6 +44,12 @@ To update this module:
 npm update -g generator-jhipster-fx
 ```
 
+Addon library installation:
+
+```bash
+sudo apt-get install openjfx
+```
+
 # Usage
 
 ```bash
@@ -55,7 +61,7 @@ $ yo jhipster-fx
 
 --------STEP 2-----------
 $ cd yourGeneratedFxApps
-$ mvn jfx:run
+$ mvn javafx:run
 ```
 
 # Roadmap
